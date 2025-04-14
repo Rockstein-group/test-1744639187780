@@ -1,0 +1,167 @@
+---
+import Seo from "../components/Seo.astro";
+import { Image } from "astro:assets";
+import imgimages_dd_logo_webp from "../../public/images/dd_logo.webp";
+import imgimages_dd_contact_bg_webp from "../../public/images/dd_contact_bg.webp";
+import imgimages_dd_logo_white_webp from "../../public/images/dd_logo_white.webp";
+import imgimages_dd_sms_icon_webp from "../../public/images/dd_sms_icon.webp";
+import '../styles/global.css';
+---
+
+<html lang="en">
+	<head>
+		
+        <script>
+        import { showToast } from "../components/toast";
+        (() => {
+          const els = [...document.querySelectorAll('form')];
+          if (!els?.length) return;
+          els.forEach(el => {
+            el.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const formObject = Object.fromEntries(formData);
+              formObject.emailUser = "simon.c@green-web.fr";
+              try {
+                const response = await fetch('undefined/api/send-mail-contact', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formObject)
+                });
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                showToast('Form submitted successfully!');
+              } catch (error) {
+                console.error('Error submitting form:', error);
+                showToast('Error submitting form', 'error');
+              }
+            });
+          });
+        })();
+      </script>
+      <script>
+      class LazyLoad extends HTMLElement {
+        constructor() {
+          super();
+          class HeadlessDetect {
+            allTestFunctions = [
+              "testUserAgent",
+              "testChromeWindow",
+              "testPlugins",
+              "testAppVersion",
+              "testConnectionRtt",
+            ];
+
+            constructor() {}
+
+            testUserAgent() {
+              if (/Headless/.test(window.navigator.userAgent)) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }
+
+            testChromeWindow() {
+              // @ts-ignore
+              if (eval.toString().length == 33 && !window.chrome) {
+                return 1;
+              } else {
+                return 0;
+              }
+            }
+
+            testNotificationPermissions(callback) {
+              navigator.permissions
+                .query({ name: "notifications" })
+                .then(function (permissionStatus) {
+                  if (
+                    Notification.permission === "denied" &&
+                    permissionStatus.state === "prompt"
+                  ) {
+                    // Headless
+                    callback(1);
+                  } else {
+                    // Not Headless
+                    callback(0);
+                  }
+                });
+            }
+
+            testPlugins() {
+              let length = navigator.plugins.length;
+
+              return length === 0 ? 1 : 0;
+            }
+
+            testAppVersion() {
+              let appVersion = navigator.appVersion;
+
+              return /headless/i.test(appVersion) ? 1 : 0;
+            }
+
+            // Connection Rtt
+            testConnectionRtt() {
+              // @ts-ignore
+              let connection = navigator.connection;
+              let connectionRtt = connection ? connection.rtt : undefined;
+
+              if (connectionRtt === undefined) {
+                return 0;
+              } else {
+                return connectionRtt === 0 ? 1 : 0;
+              }
+            }
+
+            getHeadlessScore() {
+              let score = 0;
+              let testsRun = 0;
+
+              this.testNotificationPermissions(function (v) {
+                score += v;
+                testsRun++;
+              });
+
+              for (let i = 0; i < this.allTestFunctions.length; i++) {
+                score += this[this.allTestFunctions[i]].apply();
+                testsRun++;
+              }
+
+              return score / testsRun;
+            }
+          }
+          const headlessDetector = new HeadlessDetect();
+          if (headlessDetector.getHeadlessScore() > 0.25) {
+            while (this.firstChild) {
+              this.removeChild(this.firstChild);
+            }
+          }
+        }
+      }
+
+      customElements.define("lazy-load", LazyLoad);
+    </script>
+        <Seo seo={{ title: "EcoBuilder", description: "Page description", keywords: "", canonical: "", image: '', type: "website", themeColor: "#ffffff"}} />
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/x-icon" href=/favicons/1744639151647_ChatGPT-Image-6-avr.-2025-à-20_11_17.ico /> 
+		<!-- <link
+			rel="icon"
+			type="image/svg+xml"
+			href="/favicon.svg"
+		/> -->
+		<meta
+			name="viewport"
+			content="width=device-width"
+		/>
+		<meta
+			name="generator"
+			content={Astro.generator}
+		/>
+		<title>Astro</title>
+	</head>
+	<body> <header class="flex flex-col relative shrink-0 box-border h-auto empty:min-h-[30vh] before:content-[&#x27;Header&#x27;] before:absolute before:top-0 before:left-0 before:inline-block before:py-1 before:px-2 before:bg-black/20 before:text-white before:text-sm before:rounded before:!rounded-tl-none before:!rounded-bl-none mb-[1px] header-section"><div class="header-component bg-[#F6F8F6]" aria-label="Header Desti&#x27;Durable Section"><div class="max-md:max-w-full px-4 py-4"><div class="mx-auto container 2xl:max-w-[1440px]"><div class="flex items-center justify-between w-full" aria-label="Header content container"><div aria-label="Logo Container"><a href="#" width="auto" height="auto" class="flex items-center space-x-2" aria-label="Go to homepage"><div class="relative" aria-label="Logo image container"><Image alt="Gaiact Company Logo" src={imgimages_dd_logo_webp} width="115.5" height="60" class="w-[115.5px] h-[60px] object-cover max-w-full " loading="lazy" aria-label="Desti&#x27;Durable Logo" /></div></a></div><div aria-label="Contact button container"><a width="auto" height="auto" class="rounded-full bg-[#FFB84C] px-12 py-2.5 text-[#252525] hover:bg-[#ffa01c] flex items-center justify-center" aria-label="Button for more info on Hero Desti Durable" cssWrap="w-full flex items-center justify-center text-center" href="/contact">Contactez-nous</a></div></div></div></div></div></header><main class="flex flex-col relative shrink-0 box-border h-auto empty:min-h-[30vh] before:content-[&#x27;Main&#x27;] before:absolute before:top-0 before:left-0 before:inline-block before:py-1 before:px-2 before:bg-black/20 before:text-white before:text-sm before:rounded before:!rounded-tl-none before:!rounded-bl-none mb-[1px] main-section"><section class="main-component flex flex-col overflow-hidden bg-[#F6F8F6] relative" aria-label="Contact Desti Durable Section"><div class="max-md:max-w-full px-2 py-16"><div class="w-full p-4 mx-auto container 2xl:max-w-[1440px] relative flex flex-row flex-wrap"><h1 width="auto" height="auto" class="text-[#252525] text-center font-bold leading-normal text-2xl md:text-3xl lg:text-[44px] mb-0" cssResizer="mb-12">Contactez-nous</h1><div class="w-full max-w-6xl bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-lg mx-auto"><div class="w-full md:w-5/12 bg-white relative p-5"><div class="h-full relative"><div class="absolute inset-0 rounded-2xl overflow-hidden"><Image alt="Desti&#x27;Durable Contact Background" src={imgimages_dd_contact_bg_webp} width="400" height="300" class="w-full h-full object-cover" cssImageWrapper="w-full h-full" /></div><div class="space-y-6 z-10 relative min-h-full p-5"><Image alt="Desti&#x27;Durable Logo White" src={imgimages_dd_logo_white_webp} width="153" height="80" class="mx-auto" /><div class="flex items-center justify-center lg:justify-start space-x-2 text-white"><Image alt="Desti&#x27;Durable Sms Icon" src={imgimages_dd_sms_icon_webp} width="24" height="24" class="w-6 h-6" /><a href="mailto:contact@destidurable.com" width="auto" height="auto" class="underline">contact@destidurable.com</a></div></div></div></div><div class="w-full md:w-7/12 p-5 lg:p-8"><form as="form" aria-label="Form Inner Container" class="space-y-6"><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="space-y-2 flex flex-row flex-wrap"><label width="auto" height="auto" for="prenom" class="block text-sm font-medium">Prénom*</label><input name="firstName" class="h-10 w-full border-0 border-b border-gray-300 py-2 ring-offset-background bg-white focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 px-0" placeholder="Prénom" required="" aria-label="Prénom"/></div><div class="space-y-2 flex flex-row flex-wrap"><label width="auto" height="auto" for="nom" class="block text-sm font-medium">Nom*</label><input name="lastName" class="h-10 w-full border-0 border-b border-gray-300 py-2 ring-offset-background bg-white focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 px-0" placeholder="Nom" required="" aria-label="Nom"/></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="space-y-2 flex flex-row flex-wrap"><label width="auto" height="auto" for="email" class="block text-sm font-medium">Email*</label><input name="email" class="h-10 w-full border-0 border-b border-gray-300 py-2 ring-offset-background bg-white focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 px-0" placeholder="Email" type="email" required="" aria-label="Email"/></div><div class="space-y-2 flex flex-row flex-wrap"><label width="auto" height="auto" for="entreprise" class="block text-sm font-medium">Nom de l&#x27;entreprise</label><input name="companyName" class="h-10 w-full border-0 border-b border-gray-300 py-2 ring-offset-background bg-white focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 px-0" placeholder="Nom de l&#x27;entreprise" required="" aria-label="Nom de l&#x27;entreprise"/></div></div><div class="space-y-2 flex flex-row flex-wrap"><label width="auto" height="auto" for="message" class="block text-sm font-medium">Message</label><textarea rows="4" name="message" placeholder="Write your message.." class="h-10 w-full border-0 border-b border-gray-300 py-2 ring-offset-background bg-white focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 px-0 resize-none !h-auto"></textarea></div><div class="flex justify-center !mt-16 !mb-16 lg:!mb-24"><button width="auto" height="auto" type="submit" class="px-16 min-h-[44px] inline-flex items-center justify-center bg-[#F5B544] text-[#252525] rounded-full hover:bg-[#ffa01c] transition-colors">Envoyer</button></div></form></div></div></div></div></section></main><lazy-load><footer><section class="bg-white" aria-label="Footer Desti Durable Section"><div aria-label="Footer Wrapper"><div class="p-4"><div class="mx-auto container 2xl:max-w-[1440px]"><div class="flex flex-col items-center justify-around gap-6 md:flex-row" aria-label="Footer Content"><div class="flex items-center gap-2" aria-label="Footer Logo"><Image alt="Desti&#x27;Durable Logo" src={imgimages_dd_logo_webp} width="196" height="100" class="w-auto h-auto" aria-label="Desti&#x27;Durable Logo Image" /></div><form class="flex w-auto lg:w-full max-w-xl gap-4" aria-label="Footer Email Form"><input type="email" placeholder="Adresse e-mail" class="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Email Input Field"/><button width="auto" height="auto" type="submit" class="inline-flex items-center justify-center rounded-full bg-[#FFB84C] px-12 h-[44px] text-[#252525] transition-all hover:bg-[#ffa01c]" aria-label="Submit Button">Envoyer</button></form></div></div></div><p class="border-t border-[#bbb]"></p><div class="mx-auto container 2xl:max-w-[1440px] flex flex-row justify-center"><p width="auto" height="auto" class="text-center text-sm text-[#252525] p-5" aria-label="Footer Copyright Text" cssResizer="!flex-shrink">© <!-- -->2025<!-- --> DESTI&#x27;DURABLE - Site web créé par la société GreenWeb. L&#x27;ensemble des données est stocké en France par Digital Forest, hébergeur éco-responsable.</p></div></div></section></footer></lazy-load> </body>
+</html>
